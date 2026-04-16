@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación - Asistencia Registrada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #28a745;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center p-5">
+                        <div class="success-icon mb-4">✅</div>
+                        <h2 class="mb-3">¡Asistencia Registrada Exitosamente!</h2>
+                        <p class="text-muted mb-4">
+                            Su registro de asistencia ha sido guardado correctamente en el sistema.
+                        </p>
+                        <a href="{% url 'asistencia:registro' %}" class="btn btn-primary btn-lg">
+                            Registrar Nueva Asistencia
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
