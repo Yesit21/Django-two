@@ -1,51 +1,183 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmación - Asistencia Registrada</title>
+    <title>Confirmación de Registro - UCC</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .confirmation-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .success-header {
+            background: linear-gradient(135deg, #00a8cc 0%, #0097b8 100%);
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo-img {
+            height: 60px;
+            width: auto;
+            filter: brightness(0) invert(1);
         }
         .success-icon {
-            font-size: 80px;
-            color: #28a745;
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            animation: scaleIn 0.6s ease-out;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .success-icon i {
+            font-size: 45px;
+            color: #27ae60;
+        }
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1) rotate(10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        .success-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .confirmation-body {
+            padding: 45px 40px;
+            text-align: center;
+        }
+        .confirmation-body p {
+            color: #5a6c7d;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #00a8cc;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 14px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-box i {
+            color: #00a8cc;
+            font-size: 18px;
+        }
+        .btn-return {
+            background: linear-gradient(135deg, #00a8cc 0%, #0097b8 100%);
             border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 168, 204, 0.3);
         }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        .btn-return:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 168, 204, 0.5);
+            color: white;
+        }
+        .btn-return i {
+            margin-right: 10px;
+        }
+        .footer-text {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #ecf0f1;
+            color: #95a5a6;
+            font-size: 13px;
+        }
+        .timestamp {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body text-center p-5">
-                        <div class="success-icon mb-4">✅</div>
-                        <h2 class="mb-3">¡Asistencia Registrada Exitosamente!</h2>
-                        <p class="text-muted mb-4">
-                            Su registro de asistencia ha sido guardado correctamente en el sistema.
-                        </p>
-                        <a href="{% url 'asistencia:registro' %}" class="btn btn-primary btn-lg">
-                            Registrar Nueva Asistencia
-                        </a>
-                    </div>
-                </div>
+    <div class="confirmation-card">
+        <div class="success-header">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1>Registro Completado Exitosamente</h1>
+        </div>
+        <div class="confirmation-body">
+            <p><strong>Su asistencia ha sido registrada correctamente</strong> en el sistema de gestión académica de la Universidad Cooperativa de Colombia.</p>
+            
+            <div class="timestamp">
+                <i class="fas fa-clock"></i> Registro procesado el día de hoy
+            </div>
+            
+            <div class="info-box">
+                <p>
+                    <i class="fas fa-info-circle"></i>
+                    <span><strong>Información:</strong> Los datos registrados están disponibles para consulta en el panel administrativo y serán utilizados para el control académico institucional.</span>
+                </p>
+            </div>
+            
+            <a href="{% url 'asistencia:registro' %}" class="btn-return">
+                <i class="fas fa-plus-circle"></i> Registrar Nueva Asistencia
+            </a>
+
+            <div class="footer-text">
+                <i class="fas fa-university"></i> Universidad Cooperativa de Colombia<br>
+                <small>Sistema de Gestión Académica</small>
             </div>
         </div>
     </div>
