@@ -1,186 +1,133 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Registro de Asistencia - UCC</title>
+    <title>Registro de Asistencia - UCC</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            padding: 30px 0;
+            padding: 40px 0;
         }
-        .navbar-custom {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            padding: 15px 0;
-            margin-bottom: 40px;
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .navbar-brand {
+        .header-section {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .header-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-        .navbar-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin: 0;
-        }
-        .main-container {
-            max-width: 950px;
-            margin: 0 auto;
-        }
-        .page-header {
-            background: white;
-            padding: 30px;
-            border-radius: 10px 10px 0 0;
-            border-bottom: 3px solid #00a8cc;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .page-header h1 {
-            font-size: 26px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin: 0 0 8px 0;
-        }
-        .page-header p {
-            color: #7f8c8d;
-            margin: 0;
+        .header-section p {
+            margin: 10px 0 0 0;
+            opacity: 0.95;
             font-size: 14px;
         }
         .form-container {
             background: white;
             padding: 40px;
             border-radius: 0 0 10px 10px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #34495e;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #ecf0f1;
+            border-bottom: 3px solid #8B4513;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .section-title i {
-            color: #00a8cc;
+            color: #8B4513;
         }
         .form-label {
             font-weight: 600;
             color: #2c3e50;
             margin-bottom: 8px;
             font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .form-label i {
-            color: #7f8c8d;
-            font-size: 13px;
         }
         .form-control, .form-select {
-            border: 1.5px solid #dfe6e9;
-            border-radius: 6px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
             padding: 12px 15px;
             font-size: 14px;
             transition: all 0.3s ease;
-            background: #fafbfc;
+            background: white;
+            color: #2c3e50;
         }
         .form-control:focus, .form-select:focus {
-            border-color: #00a8cc;
-            box-shadow: 0 0 0 3px rgba(0, 168, 204, 0.1);
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
             background: white;
         }
         .form-check-input {
             width: 20px;
             height: 20px;
-            border: 2px solid #dfe6e9;
+            border: 2px solid #e1e8ed;
             cursor: pointer;
-            margin-top: 2px;
         }
         .form-check-input:checked {
-            background-color: #00a8cc;
-            border-color: #00a8cc;
+            background-color: #8B4513;
+            border-color: #8B4513;
         }
         .form-check-label {
             margin-left: 10px;
-            font-weight: 500;
+            font-weight: 600;
             color: #2c3e50;
-            cursor: pointer;
         }
         .btn-submit {
-            background: linear-gradient(135deg, #00a8cc 0%, #0097b8 100%);
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
             border: none;
-            padding: 14px 40px;
+            padding: 14px 30px;
             font-size: 16px;
-            font-weight: 600;
-            border-radius: 6px;
+            font-weight: 700;
+            border-radius: 8px;
             color: white;
             transition: all 0.3s ease;
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
         }
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 168, 204, 0.4);
-            background: linear-gradient(135deg, #0097b8 0%, #00a8cc 100%);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
         }
         .section-divider {
-            margin: 35px 0 25px 0;
+            margin: 30px 0;
         }
         .text-danger {
             font-size: 13px;
             margin-top: 5px;
-            display: block;
+            color: #dc3545;
         }
-        .required-field::after {
+        .required::after {
             content: " *";
-            color: #e74c3c;
-        }
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
-            color: #95a5a6;
-            font-size: 13px;
+            color: #dc3545;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar-custom">
-        <div class="container">
-            <div class="navbar-brand">
-                <img src="https://i.imgur.com/YourLogoHere.png" alt="Logo UCC" class="logo-img" onerror="this.style.display='none'">
-                <div>
-                    <div class="navbar-title">Universidad Cooperativa de Colombia</div>
-                    <small style="color: #7f8c8d;">Sistema de Gestión Académica</small>
-                </div>
-            </div>
-        </div>
-    </nav>
-
     <div class="container main-container">
-        <div class="page-header">
-            <h1><i class="fas fa-clipboard-check" style="color: #00a8cc;"></i> Registro de Asistencia</h1>
-            <p>Complete todos los campos requeridos con la información solicitada</p>
+        <div class="header-section">
+            <h1><i class="fas fa-clipboard-check"></i> Registro de Asistencia</h1>
+            <p>Universidad Cooperativa de Colombia - Sistema de Gestión Académica</p>
         </div>
         
         <div class="form-container">
@@ -194,33 +141,33 @@
                 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="{{ form.nombre_completo.id_for_label }}" class="form-label required-field">
-                            <i class="fas fa-user"></i> {{ form.nombre_completo.label }}
+                        <label for="{{ form.nombre_completo.id_for_label }}" class="form-label required">
+                            Nombre Completo
                         </label>
                         {{ form.nombre_completo }}
                         {% if form.nombre_completo.errors %}
-                            <span class="text-danger">{{ form.nombre_completo.errors }}</span>
+                            <div class="text-danger">{{ form.nombre_completo.errors }}</div>
                         {% endif %}
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="{{ form.documento_identidad.id_for_label }}" class="form-label required-field">
-                            <i class="fas fa-id-card"></i> {{ form.documento_identidad.label }}
+                        <label for="{{ form.documento_identidad.id_for_label }}" class="form-label required">
+                            Documento de Identidad
                         </label>
                         {{ form.documento_identidad }}
                         {% if form.documento_identidad.errors %}
-                            <span class="text-danger">{{ form.documento_identidad.errors }}</span>
+                            <div class="text-danger">{{ form.documento_identidad.errors }}</div>
                         {% endif %}
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="{{ form.correo_electronico.id_for_label }}" class="form-label required-field">
-                        <i class="fas fa-envelope"></i> {{ form.correo_electronico.label }}
+                    <label for="{{ form.correo_electronico.id_for_label }}" class="form-label required">
+                        Correo Electrónico
                     </label>
                     {{ form.correo_electronico }}
                     {% if form.correo_electronico.errors %}
-                        <span class="text-danger">{{ form.correo_electronico.errors }}</span>
+                        <div class="text-danger">{{ form.correo_electronico.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -233,43 +180,43 @@
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="{{ form.fecha_asistencia.id_for_label }}" class="form-label required-field">
-                            <i class="fas fa-calendar"></i> {{ form.fecha_asistencia.label }}
+                        <label for="{{ form.fecha_asistencia.id_for_label }}" class="form-label required">
+                            Fecha de Asistencia
                         </label>
                         {{ form.fecha_asistencia }}
                         {% if form.fecha_asistencia.errors %}
-                            <span class="text-danger">{{ form.fecha_asistencia.errors }}</span>
+                            <div class="text-danger">{{ form.fecha_asistencia.errors }}</div>
                         {% endif %}
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="{{ form.hora_ingreso.id_for_label }}" class="form-label required-field">
-                            <i class="fas fa-clock"></i> {{ form.hora_ingreso.label }}
+                        <label for="{{ form.hora_ingreso.id_for_label }}" class="form-label required">
+                            Hora de Ingreso
                         </label>
                         {{ form.hora_ingreso }}
                         {% if form.hora_ingreso.errors %}
-                            <span class="text-danger">{{ form.hora_ingreso.errors }}</span>
+                            <div class="text-danger">{{ form.hora_ingreso.errors }}</div>
                         {% endif %}
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="{{ form.hora_salida.id_for_label }}" class="form-label required-field">
-                            <i class="fas fa-clock"></i> {{ form.hora_salida.label }}
+                        <label for="{{ form.hora_salida.id_for_label }}" class="form-label required">
+                            Hora de Salida
                         </label>
                         {{ form.hora_salida }}
                         {% if form.hora_salida.errors %}
-                            <span class="text-danger">{{ form.hora_salida.errors }}</span>
+                            <div class="text-danger">{{ form.hora_salida.errors }}</div>
                         {% endif %}
                     </div>
                 </div>
 
-                <div class="mb-3 form-check" style="padding-left: 0; display: flex; align-items: center; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 6px;">
+                <div class="mb-3 form-check">
                     {{ form.presente }}
                     <label class="form-check-label" for="{{ form.presente.id_for_label }}">
-                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> {{ form.presente.label }}
+                        Confirmar Presente
                     </label>
                     {% if form.presente.errors %}
-                        <span class="text-danger">{{ form.presente.errors }}</span>
+                        <div class="text-danger">{{ form.presente.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -277,27 +224,22 @@
 
                 <div class="section-title">
                     <i class="fas fa-comment-dots"></i>
-                    Observaciones Adicionales
+                    Observaciones
                 </div>
 
                 <div class="mb-3">
                     <label for="{{ form.observaciones.id_for_label }}" class="form-label">
-                        <i class="fas fa-comment-alt"></i> {{ form.observaciones.label }}
+                        Observaciones (Opcional)
                     </label>
                     {{ form.observaciones }}
                     {% if form.observaciones.errors %}
-                        <span class="text-danger">{{ form.observaciones.errors }}</span>
+                        <div class="text-danger">{{ form.observaciones.errors }}</div>
                     {% endif %}
-                    <small class="text-muted">Campo opcional. Puede agregar comentarios o notas adicionales.</small>
                 </div>
 
                 <button type="submit" class="btn btn-submit">
                     <i class="fas fa-save"></i> Registrar Asistencia
                 </button>
-
-                <div class="form-footer">
-                    <i class="fas fa-shield-alt"></i> Los datos ingresados son confidenciales y protegidos por la institución
-                </div>
             </form>
         </div>
     </div>
