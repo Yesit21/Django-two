@@ -3,120 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Asistencia</title>
+    <title>Registro de Asistencia - UCC</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             padding: 40px 0;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .header-section {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
             color: white;
-            border-radius: 15px 15px 0 0 !important;
-            padding: 20px;
+            padding: 30px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .header-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header-section p {
+            margin: 10px 0 0 0;
+            opacity: 0.95;
+            font-size: 14px;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #8B4513;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            color: #8B4513;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .form-control, .form-select {
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+            color: #2c3e50;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+            background: white;
+        }
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e1e8ed;
+            cursor: pointer;
+        }
+        .form-check-input:checked {
+            background-color: #8B4513;
+            border-color: #8B4513;
+        }
+        .form-check-label {
+            margin-left: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
             border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
         }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+        }
+        .section-divider {
+            margin: 30px 0;
+        }
+        .text-danger {
+            font-size: 13px;
+            margin-top: 5px;
+            color: #dc3545;
+        }
+        .required::after {
+            content: " *";
+            color: #dc3545;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h2 class="mb-0">📋 Registro de Asistencia</h2>
+    <div class="container main-container">
+        <div class="header-section">
+            <h1><i class="fas fa-clipboard-check"></i> Registro de Asistencia</h1>
+            <p>Universidad Cooperativa de Colombia - Sistema de Gestión Académica</p>
+        </div>
+        
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Información Personal
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.nombre_completo.id_for_label }}" class="form-label required">
+                            Nombre Completo
+                        </label>
+                        {{ form.nombre_completo }}
+                        {% if form.nombre_completo.errors %}
+                            <div class="text-danger">{{ form.nombre_completo.errors }}</div>
+                        {% endif %}
                     </div>
-                    <div class="card-body p-4">
-                        <form method="post">
-                            {% csrf_token %}
-                            
-                            <div class="mb-3">
-                                <label for="{{ form.nombre_completo.id_for_label }}" class="form-label">{{ form.nombre_completo.label }}</label>
-                                {{ form.nombre_completo }}
-                                {% if form.nombre_completo.errors %}
-                                    <div class="text-danger">{{ form.nombre_completo.errors }}</div>
-                                {% endif %}
-                            </div>
 
-                            <div class="mb-3">
-                                <label for="{{ form.documento_identidad.id_for_label }}" class="form-label">{{ form.documento_identidad.label }}</label>
-                                {{ form.documento_identidad }}
-                                {% if form.documento_identidad.errors %}
-                                    <div class="text-danger">{{ form.documento_identidad.errors }}</div>
-                                {% endif %}
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="{{ form.correo_electronico.id_for_label }}" class="form-label">{{ form.correo_electronico.label }}</label>
-                                {{ form.correo_electronico }}
-                                {% if form.correo_electronico.errors %}
-                                    <div class="text-danger">{{ form.correo_electronico.errors }}</div>
-                                {% endif %}
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="{{ form.fecha_asistencia.id_for_label }}" class="form-label">{{ form.fecha_asistencia.label }}</label>
-                                    {{ form.fecha_asistencia }}
-                                    {% if form.fecha_asistencia.errors %}
-                                        <div class="text-danger">{{ form.fecha_asistencia.errors }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label for="{{ form.hora_ingreso.id_for_label }}" class="form-label">{{ form.hora_ingreso.label }}</label>
-                                    {{ form.hora_ingreso }}
-                                    {% if form.hora_ingreso.errors %}
-                                        <div class="text-danger">{{ form.hora_ingreso.errors }}</div>
-                                    {% endif %}
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label for="{{ form.hora_salida.id_for_label }}" class="form-label">{{ form.hora_salida.label }}</label>
-                                    {{ form.hora_salida }}
-                                    {% if form.hora_salida.errors %}
-                                        <div class="text-danger">{{ form.hora_salida.errors }}</div>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            <div class="mb-3 form-check">
-                                {{ form.presente }}
-                                <label class="form-check-label" for="{{ form.presente.id_for_label }}">
-                                    {{ form.presente.label }}
-                                </label>
-                                {% if form.presente.errors %}
-                                    <div class="text-danger">{{ form.presente.errors }}</div>
-                                {% endif %}
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="{{ form.observaciones.id_for_label }}" class="form-label">{{ form.observaciones.label }}</label>
-                                {{ form.observaciones }}
-                                {% if form.observaciones.errors %}
-                                    <div class="text-danger">{{ form.observaciones.errors }}</div>
-                                {% endif %}
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">Registrar Asistencia</button>
-                            </div>
-                        </form>
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.documento_identidad.id_for_label }}" class="form-label required">
+                            Documento de Identidad
+                        </label>
+                        {{ form.documento_identidad }}
+                        {% if form.documento_identidad.errors %}
+                            <div class="text-danger">{{ form.documento_identidad.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.correo_electronico.id_for_label }}" class="form-label required">
+                        Correo Electrónico
+                    </label>
+                    {{ form.correo_electronico }}
+                    {% if form.correo_electronico.errors %}
+                        <div class="text-danger">{{ form.correo_electronico.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="section-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    Información de Asistencia
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="{{ form.fecha_asistencia.id_for_label }}" class="form-label required">
+                            Fecha de Asistencia
+                        </label>
+                        {{ form.fecha_asistencia }}
+                        {% if form.fecha_asistencia.errors %}
+                            <div class="text-danger">{{ form.fecha_asistencia.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="{{ form.hora_ingreso.id_for_label }}" class="form-label required">
+                            Hora de Ingreso
+                        </label>
+                        {{ form.hora_ingreso }}
+                        {% if form.hora_ingreso.errors %}
+                            <div class="text-danger">{{ form.hora_ingreso.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="{{ form.hora_salida.id_for_label }}" class="form-label required">
+                            Hora de Salida
+                        </label>
+                        {{ form.hora_salida }}
+                        {% if form.hora_salida.errors %}
+                            <div class="text-danger">{{ form.hora_salida.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    {{ form.presente }}
+                    <label class="form-check-label" for="{{ form.presente.id_for_label }}">
+                        Confirmar Presente
+                    </label>
+                    {% if form.presente.errors %}
+                        <div class="text-danger">{{ form.presente.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="section-title">
+                    <i class="fas fa-comment-dots"></i>
+                    Observaciones
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.observaciones.id_for_label }}" class="form-label">
+                        Observaciones (Opcional)
+                    </label>
+                    {{ form.observaciones }}
+                    {% if form.observaciones.errors %}
+                        <div class="text-danger">{{ form.observaciones.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-submit">
+                    <i class="fas fa-save"></i> Registrar Asistencia
+                </button>
+            </form>
         </div>
     </div>
 </body>
