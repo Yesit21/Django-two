@@ -16,8 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.shortcuts import redirect
+
+def _home_redirect(request):
+    return redirect('solicitudes:create')
+
 
 urlpatterns = [
+    # raíz redirige al formulario de solicitudes
+    path('', _home_redirect, name='home'),
     path('admin/', admin.site.urls),
     path('asistencia/', include('asistencia.urls')),
+    # rutas para la app 'solicitudes' creada en el workspace
+    path('solicitudes/', include('solicitudes.urls')),
 ]
+
+if settings.DEBUG:
+    # servir archivos media en desarrollo
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
