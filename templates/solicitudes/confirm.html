@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Solicitud enviada{% endblock %}
+
+{% block content %}
+  <div class="card" style="text-align:center">
+    <div class="success-badge" style="margin:0 auto 1rem auto">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="rgba(255,255,255,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Envío exitoso
+    </div>
+    <h2>Solicitud enviada</h2>
+    <p class="muted">Su solicitud se ha registrado con éxito. Gracias por usar el formulario.</p>
+    <div style="margin-top:1rem">
+      <a class="btn btn-primary" href="{% url 'solicitudes:create' %}">Enviar otra solicitud</a>
+      <a class="btn btn-secondary" href="/">Ir al inicio</a>
+    </div>
+  </div>
+{% endblock %}
